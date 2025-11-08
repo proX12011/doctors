@@ -1,4 +1,3 @@
-// ===== Firebase إعداد =====
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
@@ -16,34 +15,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// ===== جلب معرف المعلم من الرابط =====
 const urlParams = new URLSearchParams(window.location.search);
 const teacherId = urlParams.get("id");
 
-// مراجع الفيربيس
 const teacherRef = ref(db, `teachers/${teacherId}`);
 const postsRef = ref(db, "posts");
 const siteRef = ref(db, "siteInfo");
 
-// ===== تحميل بيانات المعلم =====
+// بيانات المعلم
 get(teacherRef).then(snapshot => {
   if (snapshot.exists()) {
     const data = snapshot.val();
     document.getElementById("teacherImage").src = data.image || "default.jpg";
     document.getElementById("teacherName").textContent = data.name || "غير معروف";
-
     const rating = Math.round(Number(data.rating) || 0);
     document.getElementById("teacherRating").innerHTML = "⭐".repeat(rating);
   }
 });
 
-// ===== تحميل منشورات المعلم =====
+// منشورات المعلم
 get(postsRef).then(snapshot => {
   if (snapshot.exists()) {
     const posts = snapshot.val();
     const container = document.getElementById("teacherPosts");
     container.innerHTML = "";
-
     Object.entries(posts).forEach(([id, post]) => {
       if (post.teacherId === teacherId) {
         const div = document.createElement("div");
@@ -51,82 +46,37 @@ get(postsRef).then(snapshot => {
 
         let contentHTML = "";
 
-        // ✅ صورة
         if (post.type === "image" && post.fileUrl) {
           contentHTML = `<img src="${post.fileUrl}" alt="صورة المنشور">`;
-
-        // ✅ فيديو يوتيوب من رابط فقط
         } else if (post.type === "video" && post.fileUrl) {
           let videoId = "";
-
           try {
             const url = new URL(post.fileUrl);
-
-            if (url.hostname.includes("youtube.com")) {
-              videoId = url.searchParams.get("v");
-            } else if (url.hostname.includes("youtu.be")) {
-              videoId = url.pathname.substring(1);
-            }
-          } catch (e) {
-            console.error("Invalid YouTube URL", e);
-          }
-
-          if (videoId) {
-            contentHTML = `
-              <iframe 
-                width="100%" 
-                height="350"
-                style="border:2px solid #FFD700;border-radius:10px;"
-                src="https://www.youtube.com/embed/${videoId}"
-                frameborder="0"
-                allowfullscreen>
-              </iframe>
-            `;
-          } else {
-            contentHTML = `<p style="color:red;">الرابط غير صالح</p>`;
-          }
-
-        // ✅ PDF
+            if (url.hostname.includes("youtube.com")) videoId = url.searchParams.get("v");
+            else if (url.hostname.includes("youtu.be")) videoId = url.pathname.substring(1);
+          } catch(e) { console.error("Invalid YouTube URL", e); }
+          contentHTML = videoId ? `<iframe width="100%" height="350" style="border:2px solid #FFD700;border-radius:10px;" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>` : `<p style="color:red;">الرابط غير صالح</p>`;
         } else if (post.type === "pdf" && post.fileUrl) {
-          contentHTML = `
-            <iframe 
-              src="${post.fileUrl}" 
-              width="100%" 
-              height="400px" 
-              style="border:2px solid #FFD700;border-radius:10px;">
-            </iframe>
-          `;
-
-        // ✅ نصوص فقط
+          contentHTML = `<iframe src="${post.fileUrl}" width="100%" height="400px" style="border:2px solid #FFD700;border-radius:10px;"></iframe>`;
         } else {
           contentHTML = `<p>${post.content || ""}</p>`;
         }
 
-        div.innerHTML = `
-          <h3 style="color:#FFD700;">${post.title || "منشور بدون عنوان"}</h3>
-          ${contentHTML}
-        `;
-
+        div.innerHTML = `<h3 style="color:#FFD700;">${post.title || "منشور بدون عنوان"}</h3>${contentHTML}`;
         container.appendChild(div);
-
-        // حركة بسيطة للظهور
         setTimeout(() => div.classList.add("visible"), 200);
       }
     });
   }
 });
 
-// ===== تحميل بيانات الفوتر =====
+// بيانات الفوتر
 get(siteRef).then(snapshot => {
   if (snapshot.exists()) {
     const siteData = snapshot.val();
-
-    document.getElementById("siteInfo").innerHTML =
-      siteData.location ? `<p>📍 ${siteData.location}</p>` : "";
-
+    document.getElementById("siteInfo").innerHTML = siteData.location ? `<p>📍 ${siteData.location}</p>` : "";
     const socialsContainer = document.getElementById("footerSocials");
     socialsContainer.innerHTML = "";
-
     if (siteData.socials) {
       Object.values(siteData.socials).forEach(social => {
         const a = document.createElement("a");

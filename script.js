@@ -1,8 +1,7 @@
-/* ===== إعداد Firebase ===== */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-/* 🔥 إعدادات Firebase الخاصة بك */
+// إعدادات Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyC8UmPkL9-AgrlPRPERwkYJ5uzTYX1fmDY",
   authDomain: "test-yourself-6afaa.firebaseapp.com",
@@ -14,17 +13,18 @@ const firebaseConfig = {
   measurementId: "G-SXBVYN9R4R"
 };
 
-/* 🚀 التهيئة */
+// التهيئة
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-/* 🔹 عناصر الصفحة */
+// عناصر الصفحة
 const logoContainer = document.getElementById("logoContainer");
 const teachersContainer = document.getElementById("teachersContainer");
 const socialsFooter = document.getElementById("footerSocials");
 const siteInfoFooter = document.getElementById("siteInfo");
+const searchInput = document.getElementById("searchInput");
 
-/* 🩺 عرض الشعار */
+// عرض الشعار
 onValue(ref(db, "settings/logo"), (snapshot) => {
   const logoUrl = snapshot.val();
   if (logoUrl) {
@@ -37,7 +37,7 @@ onValue(ref(db, "settings/logo"), (snapshot) => {
   }
 });
 
-/* 👩‍🏫 عرض المعلمين */
+// عرض المعلمين
 onValue(ref(db, "teachers"), (snapshot) => {
   const data = snapshot.val();
   teachersContainer.innerHTML = "";
@@ -60,8 +60,18 @@ onValue(ref(db, "teachers"), (snapshot) => {
   }
 });
 
-/* 🌍 معلومات الموقع */
-onValue(ref(db, "settings/siteInfo"), (snapshot) => {
+// البحث عن المعلمين
+searchInput.addEventListener("input", () => {
+  const term = searchInput.value.toLowerCase();
+  Array.from(teachersContainer.children).forEach(card => {
+    const name = card.querySelector("h3").textContent.toLowerCase();
+    const subject = card.querySelector("p").textContent.toLowerCase();
+    card.style.display = (name.includes(term) || subject.includes(term)) ? "block" : "none";
+  });
+});
+
+// روابط التواصل والمعلومات
+onValue(ref(db, "settings/siteInfo"), snapshot => {
   const data = snapshot.val();
   if (data) {
     siteInfoFooter.innerHTML = `
@@ -73,12 +83,11 @@ onValue(ref(db, "settings/siteInfo"), (snapshot) => {
   }
 });
 
-/* 🔗 روابط التواصل الاجتماعي */
-onValue(ref(db, "socials"), (snapshot) => {
+onValue(ref(db, "socials"), snapshot => {
   const data = snapshot.val();
   socialsFooter.innerHTML = "";
   if (data) {
-    Object.values(data).forEach((soc) => {
+    Object.values(data).forEach(soc => {
       socialsFooter.innerHTML += `
         <a href="${soc.link}" target="_blank">
           ${soc.image ? `<img src="${soc.image}" alt="${soc.name}" style="width:25px;height:25px;border-radius:50%;">` : (soc.emoji || "🔗")}
