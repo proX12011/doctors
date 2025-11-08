@@ -1,0 +1,169 @@
+/* ===== الأساسيات ===== */
+body {
+  font-family: "Cairo", sans-serif;
+  margin: 0;
+  background-color: #000;
+  color: #fff;
+}
+
+/* ===== الرأس ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #111;
+  padding: 15px 30px;
+  border-bottom: 2px solid #FFD700;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 2px solid #FFD700;
+}
+
+.animated-text {
+  font-size: 22px;
+  font-weight: bold;
+  color: #FFD700;
+  animation: fadeIn 2s ease-in-out;
+}
+
+/* ===== البحث ===== */
+.search-box input {
+  background: #fff;
+  border: 2px solid #FFD700;
+  border-radius: 25px;
+  padding: 10px 20px;
+  width: 250px;
+  font-size: 16px;
+  outline: none;
+}
+
+/* ===== قسم المعلمين ===== */
+.teachers-section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.section-title {
+  color: #FFD700;
+  margin-bottom: 25px;
+  font-size: 28px;
+}
+
+.teachers-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+  justify-items: center;
+}
+
+/* ===== بطاقات المعلمين ===== */
+.teacher-card {
+  background-color: #111;
+  border: 2px solid #FFD700;
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.teacher-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 0px 15px #FFD700;
+}
+
+.teacher-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid #FFD700;
+  object-fit: cover;
+}
+
+.teacher-card h3 {
+  color: #FFD700;
+  margin: 10px 0 5px;
+}
+
+.teacher-card p {
+  margin: 3px 0;
+  font-size: 14px;
+  color: #eee;
+}
+
+.teacher-card .rating {
+  color: #FFD700;
+  font-weight: bold;
+}
+
+.teacher-card button {
+  margin-top: 10px;
+  background-color: #FFD700;
+  color: #000;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.teacher-card button:hover {
+  background-color: #fff;
+}
+
+/* ===== الفوتر ===== */
+.footer {
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+  padding: 25px 10px;
+  border-top: 2px solid #FFD700;
+  margin-top: 50px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-socials a {
+  color: #FFD700;
+  text-decoration: none;
+  margin: 0 8px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.footer-socials a:hover {
+  color: #fff;
+}
+
+.footer-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.copy {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #777;
+}
+
+/* ===== حركات ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

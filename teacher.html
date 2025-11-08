@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ملف المعلم</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: "Cairo", sans-serif;
+      background-color: #000;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: #111;
+      padding: 20px 0;
+      box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .animated-text {
+      background: linear-gradient(90deg, #FFD700, #fff, #000);
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: moveColors 4s linear infinite;
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    @keyframes moveColors {
+      0% { background-position: 0%; }
+      100% { background-position: 200%; }
+    }
+
+    .teacher-card {
+      background-color: #111;
+      border: 2px solid #FFD700;
+      border-radius: 20px;
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 25px;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .teacher-card img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 3px solid #FFD700;
+      object-fit: cover;
+    }
+
+    .teacher-card h2 {
+      margin: 15px 0 5px;
+      font-size: 24px;
+      color: #FFD700;
+    }
+
+    .stars {
+      font-size: 24px;
+      color: #FFD700;
+      letter-spacing: 4px;
+    }
+
+    .posts-section {
+      margin: 40px auto;
+      max-width: 900px;
+      background: #111;
+      border-radius: 15px;
+      padding: 20px;
+      border: 2px solid #FFD700;
+    }
+
+    .post {
+      background: #222;
+      border-radius: 10px;
+      margin: 20px auto;
+      padding: 15px;
+      color: #fff;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+      transition: transform 0.3s ease, opacity 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .post.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .post img, .post video, .post iframe {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 10px 0;
+      border: 2px solid #FFD700;
+    }
+
+    footer {
+      background-color: #111;
+      padding: 15px;
+      color: #FFD700;
+      font-size: 14px;
+      margin-top: 50px;
+      border-top: 1px solid #FFD700;
+    }
+
+    .footer-socials img {
+      width: 28px;
+      height: 28px;
+      margin: 0 6px;
+      border-radius: 50%;
+      transition: transform 0.3s;
+      vertical-align: middle;
+    }
+
+    .footer-socials img:hover {
+      transform: scale(1.15);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1 class="animated-text">سنتر الأطباء التعليمي</h1>
+  </header>
+
+  <div class="teacher-card">
+    <img id="teacherImage" src="" alt="صورة المعلم">
+    <h2 id="teacherName">اسم المعلم</h2>
+    <div class="stars" id="teacherRating">⭐⭐⭐⭐⭐</div>
+  </div>
+
+  <section class="posts-section">
+    <h2 style="color:#FFD700;">📚 منشورات المعلم</h2>
+    <div id="teacherPosts"></div>
+  </section>
+
+  <footer>
+    <div id="siteInfo"></div>
+    <div class="footer-socials" id="footerSocials"></div>
+    <p>© 2025 سنتر الأطباء التعليمي</p>
+  </footer>
+
+  <script type="module" src="teacher.js"></script>
+</body>
+</html>
