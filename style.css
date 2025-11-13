@@ -1,0 +1,244 @@
+/* ===== أساسيات ===== */
+body {
+  font-family: "Cairo", sans-serif;
+  margin: 0;
+  background-color: #1E1E2F;
+  color: #E0E0E0;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: #00B4D8;
+}
+
+/* ===== الرأس ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1E1E2F;
+  padding: 15px 30px;
+  flex-wrap: wrap;
+}
+
+.header nav a {
+  margin: 0 10px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.header nav a:hover {
+  color: #90E0EF;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 2px solid #00B4D8;
+}
+
+.animated-text {
+  font-size: 22px;
+  font-weight: bold;
+  color: #90E0EF;
+}
+
+/* ===== البحث ===== */
+.search-section {
+  padding: 20px;
+}
+
+.search-section input {
+  width: 300px;
+  max-width: 100%;
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: 2px solid #00B4D8;
+  outline: none;
+  font-size: 16px;
+  color: #1E1E2F;
+  background: #E0E0E0;
+}
+
+/* ===== المعلمين ===== */
+.teachers-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+  gap: 25px;
+  justify-items: center;
+  padding: 20px;
+}
+
+.teacher-card {
+  background-color: #2A2A3F;
+  border: 2px solid #00B4D8;
+  border-radius: 15px;
+  padding: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.teacher-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 15px #0077B6;
+}
+
+.teacher-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #00B4D8;
+}
+
+.teacher-card h3, .teacher-card h2 {
+  color: #90E0EF;
+  margin: 10px 0 5px;
+}
+
+.teacher-card p {
+  color: #B0B0B0;
+  margin: 5px 0;
+}
+
+.teacher-card button {
+  background-color: #00B4D8;
+  color: #1E1E2F;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.teacher-card button:hover {
+  background-color: #0077B6;
+  color: #E0E0E0;
+}
+
+/* ===== المنشورات تمتد لملء الصفحة ===== */
+.posts-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.post {
+  background-color: #2A2A3F;
+  border: 2px solid #FFD700;
+  border-radius: 15px;
+  padding: 10px;
+  flex: 1 1 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.post img, .post iframe {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.post h3 {
+  color: #FFD700;
+  margin-bottom: 10px;
+}
+
+/* ===== الفوتر ===== */
+.footer {
+  background-color: #1E1E2F;
+  color: #E0E0E0;
+  padding: 25px 10px;
+  border-top: 2px solid #00B4D8;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.footer a {
+  display: inline-block;
+  margin: 5px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #00B4D8;
+  background-color: #2A2A3F;
+  color: #E0E0E0;
+  transition: 0.3s;
+}
+
+.footer a:hover {
+  background-color: #00B4D8;
+  color: #1E1E2F;
+}
+
+.footer a img {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+/* ===== تجاوب الهواتف ===== */
+@media screen and (max-width: 600px) {
+  .teachers-container {
+    grid-template-columns: 1fr;
+  }
+
+  .teacher-card img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .teacher-card h3, .teacher-card h2 {
+    font-size: 18px;
+  }
+
+  .teacher-card p {
+    font-size: 12px;
+  }
+
+  .post img, .post iframe {
+    height: 250px;
+  }
+}
+.contact-btn {
+  padding: 15px 25px;
+  border-radius: 25px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  width: 250px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.contact-btn.phone-btn {
+  background-color: #00B4D8; /* أزرق للاتصال */
+}
+
+.contact-btn.phone-btn:hover {
+  background-color: #0077B6;
+}
+
+.contact-btn.wa-btn {
+  background-color: #25D366; /* أخضر للواتس */
+}
+
+.contact-btn.wa-btn:hover {
+  background-color: #128C7E;
+}
